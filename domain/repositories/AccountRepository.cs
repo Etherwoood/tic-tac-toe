@@ -1,11 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using Microsoft.Win32;
-using tic_tac_toe.domain;
-using tic_tac_toe.printer;
-
-namespace tic_tac_toe.domain
+﻿namespace tic_tac_toe.domain
 {
     public class AccountRepository
     {

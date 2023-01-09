@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using tic_tac_toe.domain;
-
-namespace tic_tac_toe.domain
+﻿namespace tic_tac_toe.domain
 {
     public class GameRepository
     { 
         private static int id = 0;
-        public Dictionary<int, GameEntity> list = new Dictionary<int,GameEntity>();
+        private Dictionary<int, GameEntity> list = new Dictionary<int,GameEntity>();
         
         public GameEntity CreateGame(AccountEntity requester, AccountEntity opponent, int bet)
         {
@@ -21,6 +18,12 @@ namespace tic_tac_toe.domain
             GameEntity? game = null;
             list.TryGetValue(id, out game);
             return game;
+        }
+
+        public GameEntity[] FindByAccount (AccountEntity account) {
+            return this.list.Values
+                .Where((game) => game.requester == account || game.opponent == account)
+                .ToArray();
         }
 
         private static int GetNextId()

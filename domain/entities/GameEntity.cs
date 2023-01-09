@@ -60,9 +60,9 @@ namespace tic_tac_toe.domain
 
         public string[,] GetBoard () {
             string[,] board = {
-                { "  #  ", "  #  ", "  #  " },
-                { "  #  ", "  #  ", "  #  " },
-                { "  #  ", "  #  ", "  #  " },
+                { "#", "#", "#" },
+                { "#", "#", "#" },
+                { "#", "#", "#" },
             };
 
             for (int y = 0; y < this.size; y++)
@@ -70,7 +70,7 @@ namespace tic_tac_toe.domain
                 for (int x = 0; x < this.size; x++)
                 {
                     if (this.board[y, x] == -1) continue;
-                    board[y, x] = this.board[y, x] == this.requester.id ? "  X  " : "  O  ";
+                    board[y, x] = this.board[y, x] == this.requester.id ? "X" : "O";
                 }
             }
 

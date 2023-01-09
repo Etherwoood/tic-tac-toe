@@ -52,5 +52,19 @@ namespace tic_tac_toe.app
 
             return new GameDto(game);
         }
+
+        public GameDto[] FindByAccount (int accountId) {
+            AccountEntity? account = this.accounts.GetOne(accountId);
+
+            if (account == null)
+            {
+                throw new Exception("error.account.not.found");
+            }
+
+            return this.games
+                .FindByAccount(account)
+                .Select((game) => new GameDto(game))
+                .ToArray();
+        }
     }
 }

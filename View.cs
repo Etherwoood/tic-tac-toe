@@ -16,12 +16,19 @@ namespace tic_tac_toe
             this.games = games;
         }
 
-        public void Initialize(string owner, string accepted, int bet)
+        public void Initialize()
         {
 
-            AccountDto requester = this.accounts.Create(owner);
-            AccountDto opponent = this.accounts.Create(accepted);
+            AccountDto oleg = this.accounts.Create("Oleg");
+            AccountDto sergey = this.accounts.Create("Sergey");
 
+            this.PlayGame(oleg, sergey, 30);
+            this.PlayGame(oleg, sergey, 15);  
+
+            this.PrintStats(oleg);      
+        }
+
+        private void PlayGame (AccountDto requester, AccountDto opponent, int bet) {
             GameDto game = this.games.Start(requester.id, opponent.id, bet);
 
             AccountDto turner = requester;
@@ -70,10 +77,39 @@ namespace tic_tac_toe
             {
                 for (int j = 0; j < game.size; j++)
                 {
-                    Console.Write(game.board[i, j]);
+                    Console.Write($"  {game.board[i, j]}  ");
                 }
                 Console.WriteLine();
             }
+        }
+        public void PrintStats(AccountDto account)
+        {
+
+            int winCount = 0;
+            int rating = 0;
+            int loseCount = 0;
+
+            GameDto[] games = this.games.FindByAccount(account.id);
+
+            foreach (var game in games)
+            {
+                if (game.requester.id == account.id || game.opponent.id == account.id)
+                {
+                    if (game.winner?.id == account.id)
+                    {
+                        winCount++;
+                        rating += game.bet;
+                    }
+                    else
+                    {
+                        loseCount++;
+                        rating -= game.bet;
+                    }
+                }
+            }
+            Console.WriteLine("Wins: "+winCount);
+            Console.WriteLine("Loses: "+loseCount);
+            Console.WriteLine("Rating: "+rating);
         }
     }
 }
