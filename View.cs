@@ -1,7 +1,5 @@
 ﻿using tic_tac_toe.app;
 using tic_tac_toe.common;
-using System;
-using tic_tac_toe.domain;
 
 namespace tic_tac_toe
 {
